@@ -39,8 +39,12 @@ export default function ContactPage() {
               Start by identifying your priorities and the path most likely
               to move you forward.
             </p>
-            <Cta href="/assessments" variant="secondary" className="mt-4">
-              Explore assessments
+            <Cta
+              href="/assessments/diagnostic"
+              variant="secondary"
+              className="mt-4"
+            >
+              Take the diagnostic
             </Cta>
           </div>
         </div>

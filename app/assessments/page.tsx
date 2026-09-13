@@ -12,16 +12,19 @@ export const metadata: Metadata = {
 const options = [
   {
     title: "Personal Clarity Check",
+    pathwaySlug: "personal-growth",
     description:
       "Understand what matters most, what feels out of alignment and where personal growth could create the biggest shift.",
   },
   {
     title: "Career Direction Assessment",
+    pathwaySlug: "career-success",
     description:
       "Explore your strengths, values and ambitions to identify a clearer, more compelling professional direction.",
   },
   {
     title: "Business Growth Diagnostic",
+    pathwaySlug: "business-growth",
     description:
       "Reveal the strategic, leadership and execution constraints currently limiting sustainable growth.",
   },
@@ -54,40 +57,41 @@ export default function AssessmentsPage() {
           getting in the way and where your energy can create the greatest
           progress.
         </p>
-        <Cta href="/contact" className="mt-8">
+        <Cta href="/assessments/diagnostic" className="mt-8">
           Take the Growth Path Diagnostic
         </Cta>
-        <p className="mt-4 max-w-xl text-sm italic text-ink/50">
-          The interactive diagnostic is in development — get in touch and
-          we&rsquo;ll walk you through it directly.
-        </p>
       </Section>
 
       <Section tone="sand">
         <h2 className="font-serif text-2xl text-ink">Assessment options</h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-3">
           {options.map((option) => (
-            <div
+            <a
               key={option.title}
-              className="rounded-2xl border border-line bg-white p-6"
+              href={`/assessments/diagnostic?pathway=${option.pathwaySlug}`}
+              className="group flex flex-col rounded-2xl border border-line bg-white p-6 transition-colors hover:border-ochre"
             >
               <h3 className="font-serif text-lg text-ink">{option.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-ink/70">
+              <p className="mt-2 flex-1 text-sm leading-6 text-ink/70">
                 {option.description}
               </p>
-            </div>
+              <span className="mt-4 text-sm font-semibold text-clay group-hover:underline">
+                Start this assessment →
+              </span>
+            </a>
           ))}
         </div>
       </Section>
 
       <Section>
-        <p className="text-sm font-medium text-clay">Try one now</p>
+        <p className="text-sm font-medium text-clay">Something shorter?</p>
         <h2 className="mt-3 font-serif text-3xl text-ink">
           Two quick quizzes, ready today.
         </h2>
         <p className="mt-3 max-w-2xl text-base text-ink/70">
-          While the full diagnostic is in development, these 2-minute quizzes
-          give you an immediate, personalised read on where you stand.
+          These 2-minute quizzes give you an immediate, personalised read on
+          where you stand — a lighter alternative to the full diagnostic
+          above.
         </p>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {Object.values(quizzes).map((quiz) => (
@@ -132,7 +136,7 @@ export default function AssessmentsPage() {
           A focused conversation can turn your report into a clear development
           plan.
         </p>
-        <Cta href="/contact" className="mt-8">
+        <Cta href="/assessments/diagnostic" className="mt-8">
           Begin the assessment
         </Cta>
       </Section>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ProgressBar from "@/components/ProgressBar";
 import type { QuizConfig } from "@/lib/content/quizzes";
 
 type Screen = "landing" | "quiz" | "gate" | "result";
@@ -132,11 +133,8 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
 
       {screen === "quiz" && (
         <div>
-          <div className="mb-7 h-1 w-full overflow-hidden rounded-full bg-line">
-            <div
-              className="h-full rounded-full bg-ochre transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
+          <div className="mb-7">
+            <ProgressBar percent={progress} />
           </div>
           <p className="mb-2 text-sm text-ink/55">
             Question {current + 1} of {total}

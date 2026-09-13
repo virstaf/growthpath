@@ -157,7 +157,7 @@ export default function Home() {
           A focused assessment gives you language for what is working, what
           is getting in the way and which path deserves your energy next.
         </p>
-        <Cta href="/assessments" className="mt-8">
+        <Cta href="/assessments/diagnostic" className="mt-8">
           Find your starting point
         </Cta>
       </Section>
