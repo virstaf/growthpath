@@ -21,34 +21,39 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2.5">
           <Image
             src="/logo-mark.png"
-            alt="Growth Path"
+            alt="Growth Pathway"
             width={176}
             height={127}
             priority
             className="h-9 w-auto"
           />
           <span className="font-serif text-xl font-medium tracking-tight text-ink">
-            Growth Path
+            Growth Pathway
           </span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-          <details className="group relative">
-            <summary className="cursor-pointer list-none text-ink/80 hover:text-ink [&::-webkit-details-marker]:hidden">
+          <div className="group relative">
+            <button
+              type="button"
+              className="cursor-pointer text-ink/80 hover:text-ink"
+            >
               Pathways
-            </summary>
-            <div className="absolute left-0 top-full z-10 mt-3 w-56 rounded-xl border border-line bg-white p-2 shadow-lg">
-              {pathways.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-sand/60 hover:text-ink"
-                >
-                  {item.label}
-                </Link>
-              ))}
+            </button>
+            <div className="absolute left-0 top-full z-10 hidden pt-3 group-hover:block group-focus-within:block">
+              <div className="w-56 rounded-xl border border-line bg-white p-2 shadow-lg">
+                {pathways.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-sand/60 hover:text-ink"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </details>
+          </div>
           {navLinks.map((item) => (
             <Link
               key={item.href}
@@ -62,7 +67,7 @@ export default function Header() {
 
         <Link
           href="/contact"
-          className="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#0e211d] md:inline-flex"
+          className="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#0a2038] md:inline-flex"
         >
           Start a conversation
         </Link>

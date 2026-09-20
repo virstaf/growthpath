@@ -1,6 +1,7 @@
 import Cta from "@/components/Cta";
 import PathFramework from "@/components/PathFramework";
 import Section from "@/components/Section";
+import SectionImage from "@/components/SectionImage";
 import { pathways } from "@/lib/content/pathways";
 
 const journeySteps = [
@@ -32,27 +33,39 @@ export default function Home() {
   return (
     <>
       <Section className="pt-20 sm:pt-28">
-        <p className="text-sm font-medium text-clay">
-          Personal development with direction
-        </p>
-        <h1 className="mt-3 max-w-2xl font-serif text-5xl font-medium leading-tight text-ink sm:text-6xl">
-          A clearer path to your next level.
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          Growth Path helps individuals, professionals and business owners
-          turn ambition into focused action — and focused action into
-          meaningful progress.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-4">
-          <Cta href="/contact">Start your growth journey</Cta>
-          <Cta href="#pathways" variant="secondary">
-            Explore the three paths
-          </Cta>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p className="uppercase tracking-wide text-sm font-medium text-clay">
+              Personal development with direction
+            </p>
+            <h1 className="mt-3 font-serif text-5xl font-medium leading-tight text-ink sm:text-6xl">
+              A clearer path to your next level.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
+              Growth Pathway helps individuals, professionals and business
+              owners turn ambition into focused action — and focused action
+              into meaningful progress.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Cta href="/contact">Start your growth journey</Cta>
+              <Cta href="#pathways" variant="secondary">
+                Explore the three paths
+              </Cta>
+            </div>
+            <p className="mt-8 text-sm font-medium text-ink/60">
+              Practical development &nbsp;|&nbsp; Clear next steps &nbsp;|&nbsp;
+              Meaningful progress
+            </p>
+          </div>
+
+          <SectionImage
+            query="businessman walking up steps office building confident"
+            orientation="portrait"
+            priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="aspect-[4/5] w-full lg:aspect-[3/4]"
+          />
         </div>
-        <p className="mt-8 text-sm font-medium text-ink/60">
-          Practical development &nbsp;|&nbsp; Clear next steps &nbsp;|&nbsp;
-          Meaningful progress
-        </p>
 
         <ol className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {journeySteps.map((step, index) => (
@@ -68,16 +81,26 @@ export default function Home() {
       </Section>
 
       <Section tone="sand">
-        <h2 className="max-w-2xl font-serif text-3xl text-ink sm:text-4xl">
-          You already have potential. What you need is a path.
-        </h2>
-        <p className="mt-5 max-w-2xl text-base leading-7 text-ink/75">
-          Growth can feel overwhelming when everything seems important. We
-          help you identify what matters most, build the capability to move
-          forward and stay accountable to the future you want. Whether the
-          goal is personal confidence, career momentum or sustainable business
-          growth, the work begins with clarity.
-        </p>
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <SectionImage
+            query="person writing planning notebook desk calm"
+            orientation="landscape"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="aspect-[4/3] w-full lg:order-first"
+          />
+          <div>
+            <h2 className="max-w-2xl font-serif text-3xl text-ink sm:text-4xl">
+              You already have potential. What you need is a path.
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-ink/75">
+              Growth can feel overwhelming when everything seems important. We
+              help you identify what matters most, build the capability to
+              move forward and stay accountable to the future you want.
+              Whether the goal is personal confidence, career momentum or
+              sustainable business growth, the work begins with clarity.
+            </p>
+          </div>
+        </div>
       </Section>
 
       <Section id="pathways">
@@ -93,15 +116,25 @@ export default function Home() {
             <a
               key={pathway.slug}
               href={`/${pathway.slug}`}
-              className="group flex flex-col rounded-2xl border border-line bg-white p-6 transition-colors hover:border-ochre"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-colors hover:border-ochre"
             >
-              <h3 className="font-serif text-xl text-ink">{pathway.name}</h3>
-              <p className="mt-3 flex-1 text-sm leading-6 text-ink/70">
-                {pathway.intro}
-              </p>
-              <span className="mt-5 text-sm font-semibold text-clay group-hover:underline">
-                Explore this pathway →
-              </span>
+              <SectionImage
+                query={pathway.imageQuery}
+                orientation="landscape"
+                sizes="(min-width: 1024px) 33vw, 100vw"
+                className="aspect-[4/3] w-full rounded-none"
+              />
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="font-serif text-xl text-ink">
+                  {pathway.name}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-6 text-ink/70">
+                  {pathway.intro}
+                </p>
+                <span className="mt-5 text-sm font-semibold text-clay group-hover:underline">
+                  Explore this pathway →
+                </span>
+              </div>
             </a>
           ))}
         </div>
@@ -119,7 +152,7 @@ export default function Home() {
           <PathFramework />
         </div>
         <Cta href="/programmes" variant="secondary" className="mt-10">
-          How Growth Path works
+          How Growth Pathway works
         </Cta>
       </Section>
 
@@ -147,7 +180,7 @@ export default function Home() {
       </Section>
 
       <Section tone="sand">
-        <p className="text-sm font-medium text-clay">
+        <p className="uppercase tracking-wide text-sm font-medium text-clay">
           Not sure where to begin?
         </p>
         <h2 className="mt-3 max-w-2xl font-serif text-3xl text-ink">

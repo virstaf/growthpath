@@ -8,12 +8,14 @@ export type Pathway = {
   offers: { title: string; description: string }[];
   changes: string[];
   signatureThought: string;
+  imageQuery: string;
 };
 
 export const pathways: Record<string, Pathway> = {
   "personal-growth": {
     slug: "personal-growth",
     name: "Personal Growth",
+    imageQuery: "person journaling reflection notebook window light",
     headline: "Become more intentional about the person you are becoming.",
     intro:
       "Build the self-awareness, confidence and everyday habits that help you move through life with greater clarity and purpose.",
@@ -58,6 +60,7 @@ export const pathways: Record<string, Pathway> = {
   "career-success": {
     slug: "career-success",
     name: "Career Success",
+    imageQuery: "confident businesswoman office professional portrait",
     headline: "Build a career that reflects your potential and purpose.",
     intro:
       "Move beyond uncertainty and create a career strategy grounded in your strengths, values and ambition.",
@@ -102,6 +105,7 @@ export const pathways: Record<string, Pathway> = {
   "business-growth": {
     slug: "business-growth",
     name: "Business Growth",
+    imageQuery: "business team strategy meeting collaboration office",
     headline: "Build the clarity and capability your business needs to grow.",
     intro:
       "Strengthen your strategy, leadership and execution so the next stage of your business is both ambitious and sustainable.",

@@ -3,7 +3,7 @@ import Cta from "@/components/Cta";
 import Section from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Resources | Growth Path",
+  title: "Resources | Growth Pathway",
   description:
     "Ideas, prompts and tools to help you reflect more clearly, decide more intentionally and make progress that lasts.",
 };
@@ -52,7 +52,7 @@ export default function ResourcesPage() {
               <h3 className="font-serif text-lg text-ink">
                 {resource.title}
               </h3>
-              <p className="mt-2 text-sm font-medium text-clay">
+              <p className="uppercase tracking-wide mt-2 text-sm font-medium text-clay">
                 {resource.tagline}
               </p>
               <p className="mt-2 text-sm leading-6 text-ink/70">
@@ -63,7 +63,7 @@ export default function ResourcesPage() {
         </div>
         <p className="mt-8 text-sm italic text-ink/50">
           The resource library is growing. New guides and tools will be added
-          as Growth Path develops.
+          as Growth Pathway develops.
         </p>
         <Cta href="/contact" variant="secondary" className="mt-6">
           Tell us what would help

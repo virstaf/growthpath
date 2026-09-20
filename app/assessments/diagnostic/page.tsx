@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import GrowthPathDiagnostic from "@/components/GrowthPathDiagnostic";
+import GrowthPathwayDiagnostic from "@/components/GrowthPathwayDiagnostic";
 import { diagnosticPathways } from "@/lib/content/diagnostic";
 
 export const metadata: Metadata = {
-  title: "Growth Path Diagnostic | Growth Path",
+  title: "Growth Pathway Diagnostic | Growth Pathway",
   description:
     "Choose a pathway, respond to 10 statements, and get a personalised report showing your PATH profile, priority growth areas and a 30-day plan.",
 };
@@ -16,5 +16,5 @@ export default async function DiagnosticPage({
   const { pathway } = await searchParams;
   const initialPathwaySlug = pathway && diagnosticPathways[pathway] ? pathway : null;
 
-  return <GrowthPathDiagnostic initialPathwaySlug={initialPathwaySlug} />;
+  return <GrowthPathwayDiagnostic initialPathwaySlug={initialPathwaySlug} />;
 }

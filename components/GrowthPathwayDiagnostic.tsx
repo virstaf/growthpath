@@ -16,7 +16,7 @@ type Screen = "intro" | "quiz" | "report";
 
 const pathwayList = Object.values(diagnosticPathways);
 
-export default function GrowthPathDiagnostic({
+export default function GrowthPathwayDiagnostic({
   initialPathwaySlug,
 }: {
   initialPathwaySlug: string | null;
@@ -73,8 +73,8 @@ export default function GrowthPathDiagnostic({
     <div className="mx-auto max-w-2xl px-6 py-16 sm:py-20">
       {screen === "intro" && (
         <div>
-          <p className="text-sm font-medium text-clay">
-            GROWTH PATH DIAGNOSTIC
+          <p className="uppercase tracking-wide text-sm font-medium text-clay">
+            Growth Pathway Diagnostic
           </p>
           <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
             Find the growth area that deserves your focus.
@@ -135,7 +135,7 @@ export default function GrowthPathDiagnostic({
               type="button"
               onClick={beginAssessment}
               disabled={!pathway}
-              className="mt-5 w-full rounded-xl bg-ink px-5 py-4 text-base font-semibold text-paper transition-colors hover:bg-[#0e211d] disabled:cursor-not-allowed disabled:opacity-40"
+              className="mt-5 w-full rounded-xl bg-ink px-5 py-4 text-base font-semibold text-paper transition-colors hover:bg-[#0a2038] disabled:cursor-not-allowed disabled:opacity-40"
             >
               Begin assessment
             </button>
@@ -187,7 +187,7 @@ export default function GrowthPathDiagnostic({
 
       {screen === "report" && pathway && report && (
         <div>
-          <p className="text-sm font-medium text-clay">
+          <p className="uppercase tracking-wide text-sm font-medium text-clay">
             {pathway.name} Diagnostic
           </p>
           <h1 className="mt-2 font-serif text-3xl font-medium leading-tight text-ink sm:text-4xl">
@@ -301,18 +301,18 @@ export default function GrowthPathDiagnostic({
           </div>
 
           <div className="mt-10 rounded-2xl border border-line bg-sand/40 p-6 sm:p-7">
-            <p className="text-sm font-medium text-clay">Your next step</p>
+            <p className="uppercase tracking-wide text-sm font-medium text-clay">Your next step</p>
             <h2 className="mt-2 font-serif text-2xl text-ink">
               Turn this insight into a clear development plan.
             </h2>
             <p className="mt-2 text-sm leading-6 text-ink/70">
-              A Growth Path conversation will help you interpret the results,
+              A Growth Pathway conversation will help you interpret the results,
               sharpen your priorities and choose the support that fits your
               goal.
             </p>
             <Link
               href="/contact"
-              className="mt-5 inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-[#0e211d]"
+              className="mt-5 inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-[#0a2038]"
             >
               Book a growth conversation
             </Link>

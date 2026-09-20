@@ -4,7 +4,7 @@ import Section from "@/components/Section";
 import { quizzes } from "@/lib/content/quizzes";
 
 export const metadata: Metadata = {
-  title: "Assessments | Growth Path",
+  title: "Assessments | Growth Pathway",
   description:
     "A focused assessment helps you understand where you are, what is getting in the way and where your energy can create the greatest progress.",
 };
@@ -58,7 +58,7 @@ export default function AssessmentsPage() {
           progress.
         </p>
         <Cta href="/assessments/diagnostic" className="mt-8">
-          Take the Growth Path Diagnostic
+          Take the Growth Pathway Diagnostic
         </Cta>
       </Section>
 
@@ -84,7 +84,7 @@ export default function AssessmentsPage() {
       </Section>
 
       <Section>
-        <p className="text-sm font-medium text-clay">Something shorter?</p>
+        <p className="uppercase tracking-wide text-sm font-medium text-clay">Something shorter?</p>
         <h2 className="mt-3 font-serif text-3xl text-ink">
           Two quick quizzes, ready today.
         </h2>

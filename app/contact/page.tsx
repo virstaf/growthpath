@@ -4,7 +4,7 @@ import Section from "@/components/Section";
 import { pathways } from "@/lib/content/pathways";
 
 export const metadata: Metadata = {
-  title: "Contact | Growth Path",
+  title: "Contact | Growth Pathway",
   description:
     "Whether your focus is personal, professional or commercial, the first step is a clear conversation about what matters now.",
 };

@@ -5,7 +5,7 @@ import { pathways } from "@/lib/content/pathways";
 const pathway = pathways["personal-growth"];
 
 export const metadata: Metadata = {
-  title: `${pathway.name} | Growth Path`,
+  title: `${pathway.name} | Growth Pathway`,
   description: pathway.intro,
 };
 

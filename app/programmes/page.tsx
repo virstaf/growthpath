@@ -3,9 +3,9 @@ import Cta from "@/components/Cta";
 import Section from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Programmes | Growth Path",
+  title: "Programmes | Growth Pathway",
   description:
-    "Growth Path programmes combine reflection, expert guidance, applied tools and accountability, so learning creates visible change.",
+    "Growth Pathway programmes combine reflection, expert guidance, applied tools and accountability, so learning creates visible change.",
 };
 
 const programmes = [
@@ -39,7 +39,7 @@ export default function ProgrammesPage() {
           Structured development. Practical momentum.
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          Growth Path programmes combine reflection, expert guidance, applied
+          Growth Pathway programmes combine reflection, expert guidance, applied
           tools and accountability — so learning creates visible change.
         </p>
       </Section>

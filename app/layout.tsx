@@ -16,9 +16,9 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Growth Path | A clearer path to your next level",
+  title: "Growth Pathway | A clearer path to your next level",
   description:
-    "Growth Path helps individuals, professionals and business owners turn ambition into focused action, and focused action into meaningful progress.",
+    "Growth Pathway helps individuals, professionals and business owners turn ambition into focused action, and focused action into meaningful progress.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Are You Growing — Or Just Staying Busy?</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap");
+
+      :root {
+        --ink: #16302b;
+        --sand: #e8e2d4;
+        --paper: #faf9f5;
+        --ochre: #c98a3d;
+        --clay: #b5563f;
+        --line: rgba(22, 48, 43, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+        min-height: 100vh;
+      }
+
+      .eyebrow {
+        font-size: 13px;
+        color: var(--clay);
+        letter-spacing: 0.02em;
+        margin-bottom: 6px;
+      }
+
+      h1 {
+        font-family: "Newsreader", serif;
+        font-weight: 500;
+        font-size: clamp(28px, 6vw, 38px);
+        line-height: 1.15;
+        margin: 0 0 14px;
+      }
+
+      .hook {
+        font-size: 16px;
+        line-height: 1.55;
+        color: rgba(22, 48, 43, 0.78);
+        margin: 0 0 28px;
+        max-width: 46ch;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 16px 20px;
+        border-radius: 10px;
+        border: none;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.12s ease,
+          background 0.15s ease;
+      }
+
+      .btn-primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .btn-primary:hover {
+        background: #0e211d;
+        transform: translateY(-1px);
+      }
+      .btn-primary:active {
+        transform: translateY(0);
+      }
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: default;
+        transform: none;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 4px;
+        background: var(--line);
+        border-radius: 4px;
+        margin-bottom: 28px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--ochre);
+        border-radius: 4px;
+        transition: width 0.35s ease;
+      }
+
+      .q-count {
+        font-size: 13px;
+        color: rgba(22, 48, 43, 0.55);
+        margin-bottom: 10px;
+      }
+
+      .question {
+        font-family: "Newsreader", serif;
+        font-size: clamp(21px, 4.6vw, 26px);
+        line-height: 1.3;
+        font-weight: 500;
+        margin: 0 0 22px;
+      }
+
+      .option {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 16px 18px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: white;
+        color: var(--ink);
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        line-height: 1.4;
+        cursor: pointer;
+        transition:
+          border-color 0.15s ease,
+          background 0.15s ease;
+      }
+      .option:hover {
+        border-color: var(--ochre);
+        background: #fffbf3;
+      }
+
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+      }
+
+      .gate-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 28px 24px;
+        margin-top: 8px;
+      }
+
+      .gate-card p {
+        font-size: 15px;
+        line-height: 1.6;
+        color: rgba(22, 48, 43, 0.8);
+        margin: 0 0 20px;
+      }
+
+      input[type="email"],
+      input[type="text"] {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        margin-bottom: 12px;
+        background: var(--paper);
+      }
+      input[type="email"]:focus,
+      input[type="text"]:focus {
+        outline: 2px solid var(--ochre);
+        outline-offset: 1px;
+      }
+
+      .score-badge {
+        display: inline-block;
+        font-family: "Newsreader", serif;
+        font-size: 15px;
+        color: var(--clay);
+        border: 1px solid var(--clay);
+        border-radius: 100px;
+        padding: 5px 14px;
+        margin-bottom: 16px;
+      }
+
+      .result-name {
+        font-family: "Newsreader", serif;
+        font-size: clamp(30px, 7vw, 40px);
+        font-weight: 500;
+        line-height: 1.1;
+        margin: 0 0 18px;
+      }
+
+      .result-block {
+        margin-bottom: 20px;
+      }
+      .result-label {
+        font-size: 13px;
+        color: var(--clay);
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .result-text {
+        font-size: 15.5px;
+        line-height: 1.6;
+        color: rgba(22, 48, 43, 0.85);
+        margin: 0;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 24px 0;
+      }
+
+      .restart {
+        background: none;
+        border: none;
+        color: rgba(22, 48, 43, 0.5);
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        text-decoration: underline;
+        cursor: pointer;
+        margin-top: 22px;
+        padding: 0;
+      }
+
+      .fade-in {
+        animation: fadeUp 0.5s ease both;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .fade-in {
+          animation: none;
+        }
+        .btn-primary:hover {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- SCREEN 1: LANDING -->
+      <div class="screen active" id="screen-landing">
+        <div class="eyebrow">2-MINUTE ASSESSMENT</div>
+        <h1>Are You Growing — Or Just Staying Busy?</h1>
+        <p class="hook">
+          Plateaus rarely feel like plateaus. They feel like a full calendar, a
+          stable routine, and a nagging sense that something's missing. Answer
+          12 quick questions to find out whether you're actually moving forward,
+          or quietly running in place.
+        </p>
+        <button class="btn btn-primary" onclick="startQuiz()">
+          Start the assessment
+        </button>
+      </div>
+
+      <!-- SCREEN 2: QUESTIONS -->
+      <div class="screen" id="screen-quiz">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="q-count" id="q-count">Question 1 of 12</div>
+        <div class="question fade-in" id="q-text"></div>
+        <div id="q-options"></div>
+      </div>
+
+      <!-- SCREEN 3: EMAIL GATE -->
+      <div class="screen" id="screen-gate">
+        <div class="eyebrow">YOUR RESULT IS READY</div>
+        <h1 style="font-size: clamp(24px, 5.5vw, 30px)">One last step</h1>
+        <div class="gate-card fade-in">
+          <p>
+            Enter your email to see whether you're growing, coasting, stuck, or
+            stretched thin — and what to do about it.
+          </p>
+          <input type="text" id="gate-name" placeholder="First name" />
+          <input type="email" id="gate-email" placeholder="Email address" />
+          <div
+            id="gate-error"
+            style="
+              color: #b5563f;
+              font-size: 13px;
+              margin: -4px 0 12px;
+              display: none;
+            "
+          >
+            Please enter your name and a valid email.
+          </div>
+          <button
+            class="btn btn-primary"
+            id="gate-submit-btn"
+            onclick="submitGate()"
+          >
+            Show my result
+          </button>
+        </div>
+      </div>
+
+      <!-- SCREEN 4: RESULTS -->
+      <div class="screen" id="screen-result">
+        <div class="eyebrow">YOUR CURRENT STAGE</div>
+        <div class="score-badge" id="result-score"></div>
+        <div class="result-name fade-in" id="result-name"></div>
+
+        <p
+          class="result-text fade-in"
+          id="result-opening"
+          style="font-size: 17px; margin-bottom: 24px"
+        ></p>
+
+        <div class="result-block">
+          <div class="result-label">YOUR STRENGTH</div>
+          <p class="result-text" id="result-strength"></p>
+        </div>
+
+        <div class="result-block">
+          <div class="result-label">YOUR GROWTH EDGE</div>
+          <p class="result-text" id="result-edge"></p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="result-block">
+          <p
+            class="result-text"
+            id="result-bridge"
+            style="font-style: italic"
+          ></p>
+        </div>
+
+        <button
+          class="btn btn-primary"
+          id="result-cta"
+          onclick="ctaClick()"
+        ></button>
+        <button class="restart" onclick="restartQuiz()">
+          Retake the assessment
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // ---------- CONFIG ----------
+      const FORMSPREE_URL = "https://formspree.io/f/meaqdbjp";
+      const CALENDLY_URL = "https://calendly.com/benanyan";
+
+      // ---------- DATA ----------
+      const questions = [
+        {
+          text: "Compared to a year ago, your day-to-day looks...",
+          options: [
+            "Noticeably different — new challenges, new skills",
+            "Pretty similar, and that's fine by you",
+            "Similar, and it bothers you more than you let on",
+            "Busier, but hard to say what's actually changed",
+          ],
+        },
+        {
+          text: "When something new and hard is put in front of you, you feel...",
+          options: [
+            "A pull toward it, even if it's uncomfortable",
+            "No urge to opt in unless you have to",
+            "Interested, but you talk yourself out of it",
+            "Overwhelmed — there's already too much on your plate",
+          ],
+        },
+        {
+          text: "The last time you learned a genuinely new skill was...",
+          options: [
+            "Recently — you're always working on something",
+            "Honestly, you can't remember",
+            "A while ago, and you miss that feeling",
+            'You\'re "learning" constantly but nothing sticks',
+          ],
+        },
+        {
+          text: "Your current goals are...",
+          options: [
+            "Clear, and you review progress regularly",
+            "Vague, but you're not stressed about that",
+            "Clear in your head, but you haven't touched them in months",
+            "Numerous, shifting, and hard to pin down",
+          ],
+        },
+        {
+          text: "When you imagine yourself in 3 years, doing the same role/life as now, you feel...",
+          options: [
+            "Fine — as long as you're still developing within it",
+            "Perfectly content",
+            "A quiet dread",
+            "Exhausted just thinking about the pace continuing",
+          ],
+        },
+        {
+          text: "Feedback or criticism lately makes you...",
+          options: [
+            "Curious — you look for what to do with it",
+            "Indifferent — you don't get much anymore, and don't seek it",
+            "Defensive at first, though you know it might have a point",
+            "Anxious — one more thing to fix among many",
+          ],
+        },
+        {
+          text: "Your relationship with failure right now is...",
+          options: [
+            "You're failing at new things regularly, which means you're stretching",
+            "You mostly avoid situations where you might fail",
+            "You avoid it more than you used to, and you notice that",
+            "You're not failing, but you're not sure you're succeeding either — just moving",
+          ],
+        },
+        {
+          text: "When you look at your calendar, most of it is...",
+          options: [
+            "A mix of core work and things that stretch you",
+            "Predictable and steady, week to week",
+            "Full of routine tasks you could do in your sleep",
+            "Packed, back-to-back, with little room to think",
+          ],
+        },
+        {
+          text: "The people you spend the most time with...",
+          options: [
+            "Challenge you and push your thinking",
+            "Are comfortable, familiar, and undemanding",
+            "Used to challenge you more than they do now",
+            "Are mostly people who also seem stretched thin",
+          ],
+        },
+        {
+          text: "When you achieve something, you...",
+          options: [
+            "Feel it, then start looking at what's next",
+            "Enjoy it and settle back into your routine",
+            "Feel a flicker of satisfaction that fades fast",
+            "Barely register it before moving to the next task",
+          ],
+        },
+        {
+          text: "If you're honest, the last real risk you took was...",
+          options: [
+            'Recent, and it paid off in growth even if it didn\'t "work"',
+            "A long time ago — you've built a life you don't need to risk",
+            "Something you keep almost doing, but don't",
+            "Hard to define — everything feels like a risk when you're this stretched",
+          ],
+        },
+        {
+          text: "The feeling that best describes your current stage is...",
+          options: ["Momentum", "Comfort", "Stuck", "Depletion"],
+        },
+      ];
+      // option index 0=A(Grower) 1=B(Cruiser) 2=C(Aware Plateau) 3=D(Treadmill)
+
+      const profiles = {
+        grower: {
+          name: "The Active Grower",
+          opening:
+            "You're not coasting — you're in a genuine season of stretch, and it shows.",
+          strength:
+            "You seek out discomfort on purpose, which is the actual mechanism of growth most people avoid.",
+          edge: 'Momentum like this is easy to run on autopilot, until it burns out or drifts without direction. The cost: growth without a clear "toward what" eventually feels like just more motion.',
+          bridge:
+            "Coaching at this stage isn't about getting unstuck — it's about aiming the momentum you already have so it compounds instead of scatters.",
+          cta: "Book a free clarity call",
+        },
+        cruiser: {
+          name: "The Comfortable Cruiser",
+          opening:
+            "Life feels stable, manageable, and honestly — pretty good. That's not nothing.",
+          strength:
+            "You've built something steady, and you're not chasing growth for its own sake.",
+          edge: 'Comfort and stagnation can look identical from the inside. The cost: years can pass this way, and the gap between "fine" and "fulfilled" only becomes visible in hindsight.',
+          bridge:
+            "Coaching here isn't about blowing up what's working — it's a space to check whether \"comfortable\" is actually a choice, or just where you stopped looking.",
+          cta: "Get your personalized growth plan",
+        },
+        plateau: {
+          name: "The Aware Plateau",
+          opening:
+            "You already know. That quiet dread when you imagine three more years like this one — that's the most honest data point in this whole quiz.",
+          strength:
+            "Self-awareness. You're not in denial, which is further than most people get.",
+          edge: "Awareness without action just becomes low-grade discomfort you carry around. The cost: staying aware but stuck long enough starts to feel like identity (\"I'm just someone who doesn't follow through\").",
+          bridge:
+            "Coaching closes exactly this gap — between knowing something needs to change and actually building the structure to change it.",
+          cta: "Book a free clarity call",
+        },
+        treadmill: {
+          name: "The Busy Treadmill",
+          opening:
+            "You're moving constantly — the problem is, motion and growth aren't the same thing, and some part of you already suspects that.",
+          strength:
+            "Real capacity for output and follow-through under pressure.",
+          edge: "When everything is urgent, nothing gets to be deliberate. The cost: depletion now, and looking back later at a lot of effort with surprisingly little to show for direction.",
+          bridge:
+            "Coaching here starts with subtraction, not addition — figuring out what to stop carrying so the effort you're already putting in starts compounding instead of just spending you.",
+          cta: "Get your personalized growth plan",
+        },
+      };
+      const profileKeys = ["grower", "cruiser", "plateau", "treadmill"];
+
+      // ---------- STATE ----------
+      let current = 0;
+      let scores = { grower: 0, cruiser: 0, plateau: 0, treadmill: 0 };
+      let finalResult = null;
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+
+      function startQuiz() {
+        current = 0;
+        scores = { grower: 0, cruiser: 0, plateau: 0, treadmill: 0 };
+        showScreen("screen-quiz");
+        renderQuestion();
+      }
+
+      function renderQuestion() {
+        const q = questions[current];
+        document.getElementById("q-count").textContent =
+          `Question ${current + 1} of ${questions.length}`;
+        document.getElementById("progress-fill").style.width =
+          `${(current / questions.length) * 100}%`;
+        const qText = document.getElementById("q-text");
+        qText.textContent = q.text;
+        qText.classList.remove("fade-in");
+        void qText.offsetWidth;
+        qText.classList.add("fade-in");
+
+        const optWrap = document.getElementById("q-options");
+        optWrap.innerHTML = "";
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement("button");
+          btn.className = "option";
+          btn.textContent = opt;
+          btn.onclick = () => selectAnswer(i);
+          optWrap.appendChild(btn);
+        });
+      }
+
+      function selectAnswer(i) {
+        scores[profileKeys[i]] += 1;
+        current++;
+        if (current < questions.length) {
+          renderQuestion();
+        } else {
+          document.getElementById("progress-fill").style.width = `100%`;
+          finalResult = computeResult();
+          showScreen("screen-gate");
+        }
+      }
+
+      function computeResult() {
+        const entries = profileKeys
+          .map((k) => [k, scores[k]])
+          .sort((a, b) => b[1] - a[1]);
+        const [topKey, topScore] = entries[0];
+        const [secondKey, secondScore] = entries[1];
+        const gap = topScore - secondScore;
+
+        let mode;
+        if (gap >= 5) {
+          mode = "pure";
+        } else if (gap >= 2) {
+          mode = "blend";
+        } else {
+          mode = "situational";
+        }
+
+        return { topKey, topScore, secondKey, secondScore, gap, mode };
+      }
+
+      function submitGate() {
+        const nameVal = document.getElementById("gate-name").value.trim();
+        const emailVal = document.getElementById("gate-email").value.trim();
+        const errorEl = document.getElementById("gate-error");
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!nameVal || !emailPattern.test(emailVal)) {
+          errorEl.style.display = "block";
+          return;
+        }
+        errorEl.style.display = "none";
+
+        const btn = document.getElementById("gate-submit-btn");
+        btn.textContent = "Sending...";
+        btn.disabled = true;
+
+        const r = finalResult;
+        const p = profiles[r.topKey];
+
+        const payload = {
+          name: nameVal,
+          email: emailVal,
+          quiz: "Growing vs. Plateauing Assessment",
+          result: p.name,
+          score: `${r.topScore}/${questions.length}`,
+          mode: r.mode,
+        };
+
+        fetch(FORMSPREE_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then((res) => {
+            if (!res.ok) {
+              console.warn("Formspree submission may have failed:", res.status);
+            }
+          })
+          .catch((err) => {
+            console.warn("Formspree submission error:", err);
+          })
+          .finally(() => {
+            btn.textContent = "Show my result";
+            btn.disabled = false;
+            showResult();
+          });
+      }
+
+      function showResult() {
+        const r = finalResult;
+        const p = profiles[r.topKey];
+        const secondP = profiles[r.secondKey];
+
+        document.getElementById("result-score").textContent =
+          `Scored ${r.topScore}/${questions.length}`;
+
+        let nameText = p.name;
+        let openingText = p.opening;
+        if (r.mode === "blend") {
+          openingText = `${p.opening} You also show some ${secondP.name.replace("The ", "")} patterns, especially when things get overwhelming.`;
+        } else if (r.mode === "situational") {
+          nameText = `${p.name} (Situational)`;
+          openingText = `Your answers were fairly spread out — a sign your stage shifts a lot depending on what's going on in your life right now. Your strongest lean was toward ${p.name}. ${p.opening}`;
+        }
+
+        document.getElementById("result-name").textContent = nameText;
+        document.getElementById("result-opening").textContent = openingText;
+        document.getElementById("result-strength").textContent = p.strength;
+        document.getElementById("result-edge").textContent = p.edge;
+        document.getElementById("result-bridge").textContent = p.bridge;
+        document.getElementById("result-cta").textContent = p.cta;
+
+        showScreen("screen-result");
+      }
+
+      function ctaClick() {
+        window.open(CALENDLY_URL, "_blank");
+      }
+
+      function restartQuiz() {
+        showScreen("screen-landing");
+      }
+    </script>
+  </body>
+</html>

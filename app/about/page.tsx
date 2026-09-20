@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Cta from "@/components/Cta";
 import PathFramework from "@/components/PathFramework";
 import Section from "@/components/Section";
+import SectionImage from "@/components/SectionImage";
 
 export const metadata: Metadata = {
-  title: "About | Growth Path",
+  title: "About | Growth Pathway",
   description:
-    "Growth Path exists to make personal, professional and business development clearer, more practical and easier to sustain.",
+    "Growth Pathway exists to make personal, professional and business development clearer, more practical and easier to sustain.",
 };
 
 const promise = [
@@ -32,18 +33,33 @@ export default function AboutPage() {
   return (
     <>
       <Section className="pt-20 sm:pt-28">
-        <p className="text-sm font-medium text-clay">About Growth Path</p>
-        <h1 className="mt-3 max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-          Development that turns intention into progress.
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          Growth Path exists to make personal, professional and business
-          development clearer, more practical and easier to sustain.
-        </p>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p className="uppercase tracking-wide text-sm font-medium text-clay">
+              About Growth Pathway
+            </p>
+            <h1 className="mt-3 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              Development that turns intention into progress.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
+              Growth Pathway exists to make personal, professional and
+              business development clearer, more practical and easier to
+              sustain.
+            </p>
+          </div>
+
+          <SectionImage
+            query="team collaboration meeting bright office"
+            orientation="portrait"
+            priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="aspect-[4/5] w-full lg:aspect-[3/4]"
+          />
+        </div>
       </Section>
 
       <Section tone="sand">
-        <p className="text-sm font-medium text-clay">Our belief</p>
+        <p className="uppercase tracking-wide text-sm font-medium text-clay">Our belief</p>
         <h2 className="mt-3 max-w-2xl font-serif text-3xl text-ink">
           Potential grows when it has direction.
         </h2>
@@ -57,7 +73,7 @@ export default function AboutPage() {
       </Section>
 
       <Section>
-        <p className="text-sm font-medium text-clay">How we work</p>
+        <p className="uppercase tracking-wide text-sm font-medium text-clay">How we work</p>
         <h2 className="mt-3 font-serif text-3xl text-ink">
           The PATH framework.
         </h2>
@@ -71,7 +87,7 @@ export default function AboutPage() {
       </Section>
 
       <Section tone="sand">
-        <p className="text-sm font-medium text-clay">Our promise</p>
+        <p className="uppercase tracking-wide text-sm font-medium text-clay">Our promise</p>
         <h2 className="mt-3 font-serif text-3xl text-ink">
           A clear path. Practical support. Measurable progress.
         </h2>

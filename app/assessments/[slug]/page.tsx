@@ -17,7 +17,7 @@ export async function generateMetadata({
   if (!quiz) return {};
 
   return {
-    title: `${quiz.title} | Growth Path`,
+    title: `${quiz.title} | Growth Pathway`,
     description: quiz.hook,
   };
 }

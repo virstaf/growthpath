@@ -114,7 +114,7 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
     <div className="mx-auto max-w-xl px-6 py-16 sm:py-20">
       {screen === "landing" && (
         <div>
-          <p className="text-sm font-medium text-clay">{config.eyebrow}</p>
+          <p className="uppercase tracking-wide text-sm font-medium text-clay">{config.eyebrow}</p>
           <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
             {config.title}
           </h1>
@@ -124,7 +124,7 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
           <button
             type="button"
             onClick={startQuiz}
-            className="mt-8 w-full rounded-xl bg-ink px-5 py-4 text-base font-semibold text-paper transition-colors hover:bg-[#0e211d] sm:w-auto sm:px-8"
+            className="mt-8 w-full rounded-xl bg-ink px-5 py-4 text-base font-semibold text-paper transition-colors hover:bg-[#0a2038] sm:w-auto sm:px-8"
           >
             Start the assessment
           </button>
@@ -162,8 +162,8 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
 
       {screen === "gate" && (
         <div>
-          <p className="text-sm font-medium text-clay">
-            YOUR RESULT IS READY
+          <p className="uppercase tracking-wide text-sm font-medium text-clay">
+            Your result is ready
           </p>
           <h1 className="mt-2 font-serif text-3xl font-medium text-ink">
             One last step
@@ -197,7 +197,7 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
               type="button"
               onClick={submitGate}
               disabled={submitting}
-              className="w-full rounded-xl bg-ink px-5 py-4 text-base font-semibold text-paper transition-colors hover:bg-[#0e211d] disabled:opacity-60"
+              className="w-full rounded-xl bg-ink px-5 py-4 text-base font-semibold text-paper transition-colors hover:bg-[#0a2038] disabled:opacity-60"
             >
               {submitting ? "Sending..." : "Show my result"}
             </button>
@@ -226,7 +226,7 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
 
           return (
             <div>
-              <p className="text-sm font-medium text-clay">
+              <p className="uppercase tracking-wide text-sm font-medium text-clay">
                 {config.resultEyebrow}
               </p>
               <p className="mt-3 inline-block rounded-full border border-clay px-3.5 py-1 font-serif text-sm text-clay">
@@ -266,7 +266,7 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
                 href={config.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 block w-full rounded-xl bg-ink px-5 py-4 text-center text-base font-semibold text-paper transition-colors hover:bg-[#0e211d]"
+                className="mt-7 block w-full rounded-xl bg-ink px-5 py-4 text-center text-base font-semibold text-paper transition-colors hover:bg-[#0a2038]"
               >
                 {profile.cta}
               </a>

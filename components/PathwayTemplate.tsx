@@ -1,25 +1,38 @@
 import Cta from "@/components/Cta";
 import Section from "@/components/Section";
+import SectionImage from "@/components/SectionImage";
 import type { Pathway } from "@/lib/content/pathways";
 
 export default function PathwayTemplate({ pathway }: { pathway: Pathway }) {
   return (
     <>
       <Section className="pt-20 sm:pt-28">
-        <p className="text-sm font-medium text-clay">{pathway.name}</p>
-        <h1 className="mt-3 max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-          {pathway.headline}
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          {pathway.intro}
-        </p>
-        <Cta href="/contact" className="mt-8">
-          Explore this pathway
-        </Cta>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p className="uppercase tracking-wide text-sm font-medium text-clay">{pathway.name}</p>
+            <h1 className="mt-3 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              {pathway.headline}
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
+              {pathway.intro}
+            </p>
+            <Cta href="/contact" className="mt-8">
+              Explore this pathway
+            </Cta>
+          </div>
+
+          <SectionImage
+            query={pathway.imageQuery}
+            orientation="portrait"
+            priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="aspect-[4/5] w-full lg:aspect-[3/4]"
+          />
+        </div>
       </Section>
 
       <Section tone="sand">
-        <p className="text-sm font-medium text-clay">Why this path</p>
+        <p className="uppercase tracking-wide text-sm font-medium text-clay">Why this path</p>
         <h2 className="mt-3 max-w-2xl font-serif text-3xl text-ink">
           Growth begins with an honest starting point.
         </h2>
@@ -45,7 +58,7 @@ export default function PathwayTemplate({ pathway }: { pathway: Pathway }) {
       </Section>
 
       <Section tone="sand">
-        <p className="text-sm font-medium text-clay">How we can help</p>
+        <p className="uppercase tracking-wide text-sm font-medium text-clay">How we can help</p>
         <h2 className="mt-3 font-serif text-2xl text-ink">
           Support designed around purposeful progress.
         </h2>

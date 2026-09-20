@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #16302b;
-  --color-sand: #e8e2d4;
-  --color-paper: #faf9f5;
-  --color-ochre: #c98a3d;
-  --color-clay: #b5563f;
-  --color-line: rgba(22, 48, 43, 0.14);
+  --color-ink: #102d4f;
+  --color-sand: #e6eef4;
+  --color-paper: #f7f8f5;
+  --color-ochre: #f0b735;
+  --color-clay: #08b6b0;
+  --color-line: rgba(16, 45, 79, 0.14);
 
   --background: var(--color-paper);
   --foreground: var(--color-ink);
