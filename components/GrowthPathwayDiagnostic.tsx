@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import OptionsHint from "@/components/OptionsHint";
 import ProgressBar from "@/components/ProgressBar";
 import {
   PATH_DIMENSIONS,
@@ -27,7 +28,7 @@ export default function GrowthPathwayDiagnostic({
   );
   const [firstName, setFirstName] = useState("");
   const [current, setCurrent] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
+  const [answers, setAnswers] = useState<(number | undefined)[]>([]);
   const [report, setReport] = useState<DiagnosticReport | null>(null);
 
   const pathway = pathwaySlug ? diagnosticPathways[pathwaySlug] : null;
@@ -41,14 +42,20 @@ export default function GrowthPathwayDiagnostic({
   }
 
   function selectAnswer(value: number) {
-    const nextAnswers = [...answers.slice(0, current), value];
+    setAnswers((prev) => {
+      const next = [...prev];
+      next[current] = value;
+      return next;
+    });
+  }
+
+  function goNext() {
+    if (answers[current] === undefined) return;
 
     if (current + 1 < total) {
-      setAnswers(nextAnswers);
       setCurrent(current + 1);
     } else {
-      setReport(computeDiagnosticReport(nextAnswers));
-      setAnswers(nextAnswers);
+      setReport(computeDiagnosticReport(answers as number[]));
       setScreen("report");
     }
   }
@@ -70,7 +77,7 @@ export default function GrowthPathwayDiagnostic({
   const progress = screen === "quiz" ? (current / total) * 100 : 100;
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16 sm:py-20">
+    <div className="mx-auto flex min-h-dvh max-w-2xl flex-col justify-center px-6 py-16 sm:py-20">
       {screen === "intro" && (
         <div>
           <p className="uppercase tracking-wide text-sm font-medium text-clay">
@@ -156,32 +163,54 @@ export default function GrowthPathwayDiagnostic({
           </p>
           <h2
             key={current}
-            className="fade-in mb-7 font-serif text-2xl leading-snug text-ink sm:text-3xl"
+            className="fade-in mb-4 font-serif text-2xl leading-snug text-ink sm:text-3xl"
           >
             {pathway.questions[current]}
           </h2>
+          <OptionsHint>
+            Choose the response that feels most true for you right now.
+            There are no right or wrong answers — respond with your honest,
+            current experience.
+          </OptionsHint>
           <div className="space-y-2.5">
-            {RESPONSE_SCALE.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => selectAnswer(option.value)}
-                className="flex w-full items-center justify-between rounded-xl border border-line bg-white px-5 py-4 text-left text-[15px] leading-snug text-ink transition-colors hover:border-ochre hover:bg-[#fffbf3]"
-              >
-                <span>{option.label}</span>
-                <span className="text-sm text-ink/40">{option.value}</span>
-              </button>
-            ))}
+            {RESPONSE_SCALE.map((option) => {
+              const selected = answers[current] === option.value;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => selectAnswer(option.value)}
+                  aria-pressed={selected}
+                  className={`block w-full rounded-xl border px-5 py-4 text-left text-[15px] leading-snug text-ink transition-colors ${
+                    selected
+                      ? "border-ochre bg-[#fffbf3]"
+                      : "border-line bg-white hover:border-ochre hover:bg-[#fffbf3]"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
           </div>
-          {current > 0 && (
+          <div className="mt-7 flex items-center justify-between">
             <button
               type="button"
               onClick={goBack}
-              className="mt-6 text-sm text-ink/50 underline"
+              className={`rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-ink/5 ${
+                current === 0 ? "invisible" : ""
+              }`}
             >
-              Back
+              ← Previous
             </button>
-          )}
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={answers[current] === undefined}
+              className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-[#0a2038] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {current + 1 === total ? "See my report" : "Next"} →
+            </button>
+          </div>
         </div>
       )}
 

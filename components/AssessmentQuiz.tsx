@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import OptionsHint from "@/components/OptionsHint";
 import ProgressBar from "@/components/ProgressBar";
 import type { QuizConfig } from "@/lib/content/quizzes";
 
@@ -14,6 +15,19 @@ type ResultSummary = {
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function buildScores(
+  config: QuizConfig,
+  answers: (number | undefined)[],
+): Record<string, number> {
+  const scores: Record<string, number> = {};
+  answers.forEach((optionIndex) => {
+    if (optionIndex === undefined) return;
+    const key = config.profileKeys[optionIndex];
+    scores[key] = (scores[key] ?? 0) + 1;
+  });
+  return scores;
+}
 
 function computeResult(
   config: QuizConfig,
@@ -33,7 +47,7 @@ function computeResult(
 export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
   const [screen, setScreen] = useState<Screen>("landing");
   const [current, setCurrent] = useState(0);
-  const [scores, setScores] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<(number | undefined)[]>([]);
   const [result, setResult] = useState<ResultSummary | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,24 +59,32 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
 
   function startQuiz() {
     setCurrent(0);
-    setScores({});
+    setAnswers([]);
     setScreen("quiz");
   }
 
   function selectAnswer(optionIndex: number) {
-    const profileKey = config.profileKeys[optionIndex];
-    const nextScores = {
-      ...scores,
-      [profileKey]: (scores[profileKey] ?? 0) + 1,
-    };
-    setScores(nextScores);
+    setAnswers((prev) => {
+      const next = [...prev];
+      next[current] = optionIndex;
+      return next;
+    });
+  }
+
+  function goNext() {
+    if (answers[current] === undefined) return;
 
     if (current + 1 < total) {
       setCurrent(current + 1);
     } else {
-      setResult(computeResult(config, nextScores));
+      setResult(computeResult(config, buildScores(config, answers)));
       setScreen("gate");
     }
+  }
+
+  function goBack() {
+    if (current === 0) return;
+    setCurrent(current - 1);
   }
 
   function submitGate() {
@@ -104,6 +126,8 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
 
   function restart() {
     setScreen("landing");
+    setCurrent(0);
+    setAnswers([]);
     setResult(null);
     setName("");
     setEmail("");
@@ -111,7 +135,7 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
   }
 
   return (
-    <div className="mx-auto max-w-xl px-6 py-16 sm:py-20">
+    <div className="mx-auto flex min-h-dvh max-w-xl flex-col justify-center px-6 py-16 sm:py-20">
       {screen === "landing" && (
         <div>
           <p className="uppercase tracking-wide text-sm font-medium text-clay">{config.eyebrow}</p>
@@ -141,21 +165,53 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
           </p>
           <h2
             key={current}
-            className="fade-in mb-6 font-serif text-2xl leading-snug text-ink sm:text-3xl"
+            className="fade-in mb-4 font-serif text-2xl leading-snug text-ink sm:text-3xl"
           >
             {config.questions[current].text}
           </h2>
+          <OptionsHint>
+            Pick the option that feels closest to how you&rsquo;d typically
+            respond — go with your first instinct rather than overthinking
+            it.
+          </OptionsHint>
           <div className="space-y-2.5">
-            {config.questions[current].options.map((option, i) => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => selectAnswer(i)}
-                className="block w-full rounded-xl border border-line bg-white px-5 py-4 text-left text-[15px] leading-snug text-ink transition-colors hover:border-ochre hover:bg-[#fffbf3]"
-              >
-                {option}
-              </button>
-            ))}
+            {config.questions[current].options.map((option, i) => {
+              const selected = answers[current] === i;
+              return (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => selectAnswer(i)}
+                  aria-pressed={selected}
+                  className={`block w-full rounded-xl border px-5 py-4 text-left text-[15px] leading-snug text-ink transition-colors ${
+                    selected
+                      ? "border-ochre bg-[#fffbf3]"
+                      : "border-line bg-white hover:border-ochre hover:bg-[#fffbf3]"
+                  }`}
+                >
+                  {option}
+                </button>
+              );
+            })}
+          </div>
+          <div className="mt-7 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={goBack}
+              className={`rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-ink/5 ${
+                current === 0 ? "invisible" : ""
+              }`}
+            >
+              ← Previous
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={answers[current] === undefined}
+              className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-[#0a2038] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {current + 1 === total ? "See my result" : "Next"} →
+            </button>
           </div>
         </div>
       )}
