@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const pathwayLinks = [
@@ -20,9 +21,20 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <p className="font-serif text-lg font-medium text-paper">
-              Growth Pathway
-            </p>
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-paper p-1.5">
+                <Image
+                  src="/logo-mark.png"
+                  alt="Growth Pathway"
+                  width={176}
+                  height={127}
+                  className="h-full w-auto"
+                />
+              </span>
+              <span className="font-serif text-lg font-medium text-paper">
+                Growth Pathway
+              </span>
+            </Link>
             <p className="mt-3 max-w-xs text-sm leading-6 text-paper/70">
               Grow with purpose. Succeed with confidence.
             </p>

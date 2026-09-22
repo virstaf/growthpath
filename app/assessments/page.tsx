@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Cta from "@/components/Cta";
 import Section from "@/components/Section";
+import SectionImage from "@/components/SectionImage";
 import { quizzes } from "@/lib/content/quizzes";
 
 export const metadata: Metadata = {
@@ -49,17 +50,29 @@ export default function AssessmentsPage() {
   return (
     <>
       <Section className="pt-20 sm:pt-28">
-        <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-          Clarity is the most valuable place to begin.
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          A focused assessment helps you understand where you are, what is
-          getting in the way and where your energy can create the greatest
-          progress.
-        </p>
-        <Cta href="/assessments/diagnostic" className="mt-8">
-          Take the Growth Pathway Diagnostic
-        </Cta>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              Clarity is the most valuable place to begin.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
+              A focused assessment helps you understand where you are, what
+              is getting in the way and where your energy can create the
+              greatest progress.
+            </p>
+            <Cta href="/assessments/diagnostic" className="mt-8">
+              Take the Growth Pathway Diagnostic
+            </Cta>
+          </div>
+
+          <SectionImage
+            query="person reflecting journal clarity thinking"
+            orientation="landscape"
+            priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="aspect-[16/10] w-full"
+          />
+        </div>
       </Section>
 
       <Section tone="sand">

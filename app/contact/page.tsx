@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Cta from "@/components/Cta";
 import Section from "@/components/Section";
+import SectionImage from "@/components/SectionImage";
 import { pathways } from "@/lib/content/pathways";
 
 export const metadata: Metadata = {
@@ -13,13 +14,25 @@ export default function ContactPage() {
   return (
     <>
       <Section className="pt-20 sm:pt-28">
-        <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-          Tell us where you want to grow.
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          Whether your focus is personal, professional or commercial, the
-          first step is a clear conversation about what matters now.
-        </p>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              Tell us where you want to grow.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
+              Whether your focus is personal, professional or commercial, the
+              first step is a clear conversation about what matters now.
+            </p>
+          </div>
+
+          <SectionImage
+            query="phone call conversation office welcoming"
+            orientation="landscape"
+            priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="aspect-[16/10] w-full"
+          />
+        </div>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           <div className="rounded-2xl border border-line bg-white p-6">

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const pathways = [
   { href: "/personal-growth", label: "Personal Growth" },
@@ -15,6 +18,13 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
+
+  const isPathwaysActive = pathways.some((item) => isActive(item.href));
+
   return (
     <header className="relative border-b border-line bg-paper/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
@@ -36,7 +46,11 @@ export default function Header() {
           <div className="group relative">
             <button
               type="button"
-              className="cursor-pointer text-ink/80 hover:text-ink"
+              className={`cursor-pointer ${
+                isPathwaysActive
+                  ? "font-semibold text-ink"
+                  : "text-ink/80 hover:text-ink"
+              }`}
             >
               Pathways
             </button>
@@ -46,7 +60,11 @@ export default function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-sand/60 hover:text-ink"
+                    className={`block rounded-lg px-3 py-2 hover:bg-sand/60 hover:text-ink ${
+                      isActive(item.href)
+                        ? "bg-sand/60 font-semibold text-ink"
+                        : "text-ink/80"
+                    }`}
                   >
                     {item.label}
                   </Link>
@@ -58,7 +76,11 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-ink/80 hover:text-ink"
+              className={
+                isActive(item.href)
+                  ? "font-semibold text-ink"
+                  : "text-ink/80 hover:text-ink"
+              }
             >
               {item.label}
             </Link>
@@ -78,14 +100,27 @@ export default function Header() {
           </summary>
           <div className="absolute inset-x-0 top-full z-10 border-b border-line bg-paper px-6 py-4">
             <nav className="flex flex-col gap-3 text-sm font-medium text-ink/80">
-              <Link href="/">Home</Link>
+              <Link
+                href="/"
+                className={pathname === "/" ? "font-semibold text-ink" : ""}
+              >
+                Home
+              </Link>
               {pathways.map((item) => (
-                <Link key={item.href} href={item.href}>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={isActive(item.href) ? "font-semibold text-ink" : ""}
+                >
                   {item.label}
                 </Link>
               ))}
               {navLinks.map((item) => (
-                <Link key={item.href} href={item.href}>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={isActive(item.href) ? "font-semibold text-ink" : ""}
+                >
                   {item.label}
                 </Link>
               ))}

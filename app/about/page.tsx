@@ -50,10 +50,10 @@ export default function AboutPage() {
 
           <SectionImage
             query="team collaboration meeting bright office"
-            orientation="portrait"
+            orientation="landscape"
             priority
             sizes="(min-width: 1024px) 40vw, 100vw"
-            className="aspect-[4/5] w-full lg:aspect-[3/4]"
+            className="aspect-[16/10] w-full lg:aspect-[16/11]"
           />
         </div>
       </Section>

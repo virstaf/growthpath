@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Cta from "@/components/Cta";
 import Section from "@/components/Section";
+import SectionImage from "@/components/SectionImage";
 
 export const metadata: Metadata = {
   title: "Programmes | Growth Pathway",
@@ -35,13 +36,26 @@ export default function ProgrammesPage() {
   return (
     <>
       <Section className="pt-20 sm:pt-28">
-        <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-          Structured development. Practical momentum.
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          Growth Pathway programmes combine reflection, expert guidance, applied
-          tools and accountability — so learning creates visible change.
-        </p>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              Structured development. Practical momentum.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
+              Growth Pathway programmes combine reflection, expert guidance,
+              applied tools and accountability — so learning creates visible
+              change.
+            </p>
+          </div>
+
+          <SectionImage
+            query="group coaching workshop session training"
+            orientation="landscape"
+            priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="aspect-[16/10] w-full"
+          />
+        </div>
       </Section>
 
       <Section tone="sand">

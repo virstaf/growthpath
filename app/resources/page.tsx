@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Cta from "@/components/Cta";
 import Section from "@/components/Section";
+import SectionImage from "@/components/SectionImage";
 
 export const metadata: Metadata = {
   title: "Resources | Growth Pathway",
@@ -33,13 +34,25 @@ export default function ResourcesPage() {
   return (
     <>
       <Section className="pt-20 sm:pt-28">
-        <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-          Practical thinking for purposeful growth.
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
-          Ideas, prompts and tools to help you reflect more clearly, decide
-          more intentionally and make progress that lasts.
-        </p>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h1 className="max-w-2xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              Practical thinking for purposeful growth.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-7 text-ink/70">
+              Ideas, prompts and tools to help you reflect more clearly,
+              decide more intentionally and make progress that lasts.
+            </p>
+          </div>
+
+          <SectionImage
+            query="person reading notebook desk study calm"
+            orientation="landscape"
+            priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="aspect-[16/10] w-full"
+          />
+        </div>
       </Section>
 
       <Section tone="sand">
