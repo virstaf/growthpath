@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import OptionsHint from "@/components/OptionsHint";
 import ProgressBar from "@/components/ProgressBar";
 import type { QuizConfig } from "@/lib/content/quizzes";
@@ -53,6 +53,7 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
   const [email, setEmail] = useState("");
   const [showError, setShowError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const total = config.questions.length;
   const progress = screen === "quiz" ? (current / total) * 100 : 100;
@@ -63,29 +64,33 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
     setScreen("quiz");
   }
 
-  function selectAnswer(optionIndex: number) {
-    setAnswers((prev) => {
-      const next = [...prev];
-      next[current] = optionIndex;
-      return next;
-    });
-  }
-
-  function goNext() {
-    if (answers[current] === undefined) return;
-
+  function advance(nextAnswers: (number | undefined)[]) {
     if (current + 1 < total) {
       setCurrent(current + 1);
     } else {
-      setResult(computeResult(config, buildScores(config, answers)));
+      setResult(computeResult(config, buildScores(config, nextAnswers)));
       setScreen("gate");
     }
   }
 
+  function selectAnswer(optionIndex: number) {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    const nextAnswers = [...answers];
+    nextAnswers[current] = optionIndex;
+    setAnswers(nextAnswers);
+    // Brief pause so the selected option visibly highlights before moving on.
+    advanceTimer.current = setTimeout(() => advance(nextAnswers), 250);
+  }
+
   function goBack() {
     if (current === 0) return;
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
     setCurrent(current - 1);
   }
+
+  const isLast = current + 1 === total;
+  const answered = answers[current] !== undefined;
+  const anyAnswered = answers.some((a) => a !== undefined);
 
   function submitGate() {
     const trimmedName = name.trim();
@@ -206,11 +211,11 @@ export default function AssessmentQuiz({ config }: { config: QuizConfig }) {
             </button>
             <button
               type="button"
-              onClick={goNext}
-              disabled={answers[current] === undefined}
-              className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-[#0a2038] disabled:cursor-not-allowed disabled:opacity-40"
+              onClick={() => advance(answers)}
+              disabled={isLast && !anyAnswered}
+              className="rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-ink/5 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {current + 1 === total ? "See my result" : "Next"} →
+              {isLast ? "See my result" : answered ? "Next" : "Skip"} →
             </button>
           </div>
         </div>

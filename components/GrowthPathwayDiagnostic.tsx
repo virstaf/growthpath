@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import OptionsHint from "@/components/OptionsHint";
 import ProgressBar from "@/components/ProgressBar";
+import ScoreBar, { ScoreLegend, scoreTier } from "@/components/ScoreBar";
 import {
   PATH_DIMENSIONS,
   RESPONSE_SCALE,
@@ -30,6 +31,7 @@ export default function GrowthPathwayDiagnostic({
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<(number | undefined)[]>([]);
   const [report, setReport] = useState<DiagnosticReport | null>(null);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pathway = pathwaySlug ? diagnosticPathways[pathwaySlug] : null;
   const total = pathway?.questions.length ?? 10;
@@ -41,27 +43,29 @@ export default function GrowthPathwayDiagnostic({
     setScreen("quiz");
   }
 
-  function selectAnswer(value: number) {
-    setAnswers((prev) => {
-      const next = [...prev];
-      next[current] = value;
-      return next;
-    });
-  }
-
-  function goNext() {
-    if (answers[current] === undefined) return;
+  function advance(nextAnswers: (number | undefined)[]) {
+    if (nextAnswers[current] === undefined) return;
 
     if (current + 1 < total) {
       setCurrent(current + 1);
     } else {
-      setReport(computeDiagnosticReport(answers as number[]));
+      setReport(computeDiagnosticReport(nextAnswers as number[]));
       setScreen("report");
     }
   }
 
+  function selectAnswer(value: number) {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    const nextAnswers = [...answers];
+    nextAnswers[current] = value;
+    setAnswers(nextAnswers);
+    // Brief pause so the selected option visibly highlights before moving on.
+    advanceTimer.current = setTimeout(() => advance(nextAnswers), 250);
+  }
+
   function goBack() {
     if (current === 0) return;
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
     setCurrent(current - 1);
   }
 
@@ -204,9 +208,9 @@ export default function GrowthPathwayDiagnostic({
             </button>
             <button
               type="button"
-              onClick={goNext}
+              onClick={() => advance(answers)}
               disabled={answers[current] === undefined}
-              className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-[#0a2038] disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-ink/5 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {current + 1 === total ? "See my report" : "Next"} →
             </button>
@@ -250,6 +254,9 @@ export default function GrowthPathwayDiagnostic({
 
           <div className="mt-8">
             <h2 className="font-serif text-xl text-ink">Your PATH profile</h2>
+            <div className="mt-3">
+              <ScoreLegend />
+            </div>
             <div className="mt-5 space-y-5">
               {PATH_DIMENSIONS.map((dimension) => (
                 <div key={dimension.key}>
@@ -262,11 +269,16 @@ export default function GrowthPathwayDiagnostic({
                         </span>
                       )}
                     </span>
-                    <span className="text-ink/60">
+                    <span
+                      className={`font-semibold tabular-nums ${scoreTier(report.dimensionScores[dimension.key]).text}`}
+                    >
                       {report.dimensionScores[dimension.key]}%
                     </span>
                   </div>
-                  <ProgressBar percent={report.dimensionScores[dimension.key]} />
+                  <ScoreBar
+                    percent={report.dimensionScores[dimension.key]}
+                    label={`${dimension.label} score`}
+                  />
                 </div>
               ))}
             </div>
