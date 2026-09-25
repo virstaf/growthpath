@@ -1,3 +1,5 @@
+import { CALENDLY_URL } from "@/lib/content/site";
+
 export type QuizProfile = {
   name: string;
   opening: string;
@@ -43,7 +45,7 @@ export const quizzes: Record<string, QuizConfig> = {
       "Enter your email to see whether you're growing, coasting, stuck, or stretched thin — and what to do about it.",
     quizName: "Growing vs. Plateauing Assessment",
     formspreeUrl: "https://formspree.io/f/meaqdbjp",
-    calendlyUrl: "https://calendly.com/benanyan",
+    calendlyUrl: CALENDLY_URL,
     blendNote:
       "You also show some {second} patterns, especially when things get overwhelming.",
     situationalNote:
@@ -210,7 +212,7 @@ export const quizzes: Record<string, QuizConfig> = {
       "Enter your email to see your Communication Style profile — plus your specific growth edge and what to do about it.",
     quizName: "Communication Style Assessment",
     formspreeUrl: "https://formspree.io/f/mbgjbeqd",
-    calendlyUrl: "https://calendly.com/benanyan",
+    calendlyUrl: CALENDLY_URL,
     blendNote:
       "You also show some {second} tendencies, especially under pressure.",
     situationalNote:

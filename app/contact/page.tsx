@@ -3,6 +3,7 @@ import Cta from "@/components/Cta";
 import Section from "@/components/Section";
 import SectionImage from "@/components/SectionImage";
 import { pathways } from "@/lib/content/pathways";
+import { CALENDLY_URL } from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Contact | Growth Pathway",
@@ -40,9 +41,17 @@ export default function ContactPage() {
               Book a discovery call
             </h2>
             <p className="mt-2 text-sm leading-6 text-ink/70">
-              Your booking link and confirmed contact details will be
-              connected before public launch.
+              A 15-minute conversation to clarify where you are, where
+              you want to go and the next step that fits.
             </p>
+            <Cta
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4"
+            >
+              Book a call
+            </Cta>
           </div>
           <div className="rounded-2xl border border-line bg-white p-6">
             <h2 className="font-serif text-lg text-ink">
